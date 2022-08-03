@@ -87,7 +87,7 @@ namespace RC.MessageQueue
         /// <typeparam name="T"></typeparam>
         /// <param name="message"></param>
         public void AddMessageToQueue<TMessage>(TMessage message)
-                    where TMessage : IntegrationMessage
+                    where TMessage : IntegrationMessage<TMessage>
         {
             var exchange = $"{typeof(TMessage).Name}-Ex";
             //Use type to ensure derived properties are serialized.
@@ -106,7 +106,7 @@ namespace RC.MessageQueue
         }
 
         public object Get_consumers<TMessage, TConsumer>()
-            where TMessage : IntegrationMessage
+            where TMessage : IntegrationMessage<TMessage>
             where TConsumer : IConsumeMessage
         {
             return _consumers;
@@ -120,7 +120,7 @@ namespace RC.MessageQueue
         /// <param name="queueName"></param>
         /// <exception cref="ArgumentException"></exception>
         public void RegisterConsumer<TMessage, TConsumer>()
-                                    where TMessage : IntegrationMessage
+                                    where TMessage : IntegrationMessage<TMessage>
                                     where TConsumer : IConsumeMessage
         {
             //Create exchange and queue based on the names of TMessage, TConsumer
@@ -200,7 +200,7 @@ namespace RC.MessageQueue
         {
             //De serialize message based on message type in the header
             string msgType = Encoding.UTF8.GetString((byte[])eventArgs.BasicProperties.Headers["message-type"]);
-            var desearlizedMSG = (IIntegrationMessage)JsonSerializer.Deserialize(message, Type.GetType(msgType));
+            var desearlizedMSG = JsonSerializer.Deserialize(message, Type.GetType(msgType));
 
             if (_consumers.ContainsKey(eventArgs.ConsumerTag))
             {

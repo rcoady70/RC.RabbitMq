@@ -1,7 +1,7 @@
 ﻿namespace RC.RabbitMq.Message
 {
 
-    public abstract class IntegrationMessage : IIntegrationMessage
+    public abstract class IntegrationMessage<T> : IIntegrationMessage
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string MessageType { get; init; } = "";
@@ -13,8 +13,10 @@
         {
             this.Id = Guid.NewGuid();
             this.CreateDate = DateTime.UtcNow;
+            //Required to de-serialize message into correct derived type
+            this.MessageType = this.GetType().FullName;
         }
-        public IntegrationMessage(Guid id, DateTime createDate)
+        public IntegrationMessage(Guid id, DateTime createDate) : base()
         {
             this.Id = id;
             this.CreateDate = createDate;

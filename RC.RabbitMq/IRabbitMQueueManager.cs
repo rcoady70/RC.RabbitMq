@@ -5,13 +5,13 @@ namespace RC.MessageQueue
 {
     public interface IRabbitMQueueManager
     {
-        void AddMessageToQueue<TMessage>(TMessage message) where TMessage : IntegrationMessage;
+        void AddMessageToQueue<TMessage>(TMessage message) where TMessage : IntegrationMessage<TMessage>;
         void Dispose();
         object Get_consumers<TMessage, TConsumer>()
-            where TMessage : IntegrationMessage
+            where TMessage : IntegrationMessage<TMessage>
             where TConsumer : IConsumeMessage;
         void RegisterConsumer<TMessage, TConsumer>()
-            where TMessage : IntegrationMessage
+            where TMessage : IntegrationMessage<TMessage>
             where TConsumer : IConsumeMessage;
         void SendAck(ulong deliveryTag);
         void SendNack(ulong deliveryTag, bool requeue);
