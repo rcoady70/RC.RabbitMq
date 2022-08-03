@@ -13,6 +13,8 @@ using RabbitMQueueManager rmq = new RabbitMQueueManager("amqp://guest:guest@loca
 rmq.RegisterConsumer<FakeIntegrationMessage, ConsumeFakeIntegrationMessage>();
 ////RegisteredWaitHandle second consumer of the message
 rmq.RegisterConsumer<FakeIntegrationMessage, ConsumeFakeIntegrationMessage1>();
+//
+rmq.RegisterConsumer<SendEmailIntegrationMessage, ConsumeSendEmailMessage>();
 
 
 ////Add messages to exchange
@@ -24,7 +26,11 @@ for (int i = 1; i <= 10; i++)
     //Messages are added to exchange FakeIntegrationMessage-Ex, exchange is generated based on message typeof(FakeIntegrationMessage).Name + "-Ex"
     rmq.AddMessageToQueue<FakeIntegrationMessage>(qMessage);
 }
-
+// Send email message 
+//
+var emailMessage = new SendEmailIntegrationMessage();
+emailMessage.Email = $"tomsmith@gmailONE.com";
+rmq.AddMessageToQueue<SendEmailIntegrationMessage>(emailMessage);
 
 Console.WriteLine("Done");
 Console.ReadLine();

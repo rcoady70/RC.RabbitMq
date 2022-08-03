@@ -9,10 +9,10 @@ namespace RC.MessageQueue
         void Dispose();
         object Get_consumers<TMessage, TConsumer>()
             where TMessage : IntegrationMessage<TMessage>
-            where TConsumer : IConsumeMessage;
+            where TConsumer : IConsumeMessage<TMessage>;
         void RegisterConsumer<TMessage, TConsumer>()
             where TMessage : IntegrationMessage<TMessage>
-            where TConsumer : IConsumeMessage;
+            where TConsumer : IConsumeMessage<TMessage>;
         void SendAck(ulong deliveryTag);
         void SendNack(ulong deliveryTag, bool requeue);
     }

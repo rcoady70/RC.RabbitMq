@@ -1,7 +1,7 @@
 ﻿namespace RC.RabbitMq.Message
 {
 
-    public abstract class IntegrationMessage<T> : IIntegrationMessage
+    public abstract class IntegrationMessage<T>
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string MessageType { get; init; } = "";

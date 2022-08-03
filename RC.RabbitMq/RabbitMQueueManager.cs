@@ -107,7 +107,7 @@ namespace RC.MessageQueue
 
         public object Get_consumers<TMessage, TConsumer>()
             where TMessage : IntegrationMessage<TMessage>
-            where TConsumer : IConsumeMessage
+            where TConsumer : IConsumeMessage<TMessage>
         {
             return _consumers;
         }
@@ -121,7 +121,7 @@ namespace RC.MessageQueue
         /// <exception cref="ArgumentException"></exception>
         public void RegisterConsumer<TMessage, TConsumer>()
                                     where TMessage : IntegrationMessage<TMessage>
-                                    where TConsumer : IConsumeMessage
+                                    where TConsumer : IConsumeMessage<TMessage>
         {
             //Create exchange and queue based on the names of TMessage, TConsumer
             //

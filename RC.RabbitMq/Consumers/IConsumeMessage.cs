@@ -2,8 +2,8 @@
 
 namespace RC.RabbitMq.Consumers
 {
-    public interface IConsumeMessage
+    public interface IConsumeMessage<T> where T : IntegrationMessage<T>
     {
-        void ProcessMessage(FakeIntegrationMessage message);
+        void ProcessMessage(T message);
     }
 }
