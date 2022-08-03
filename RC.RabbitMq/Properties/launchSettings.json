@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RC.RabbitMq": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
